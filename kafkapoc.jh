@@ -1,0 +1,37 @@
+entity Scenario {
+	name String required
+	description String
+}
+entity Logger {
+	name String required
+    burstCount Integer
+    burstFrequency Integer
+}
+entity Appender {
+	name String required
+    isAsync Boolean
+    topic String required
+}
+
+// defining multiple OneToMany relationships with comments
+relationship OneToMany {
+	Scenario{logger} to Logger
+}
+relationship OneToOne {
+	Logger{appender} to Appender
+}
+
+enum Language {
+    FRENCH, ENGLISH, SPANISH
+}
+
+// Set pagination options
+paginate Appender with infinite-scroll
+paginate Logger with pagination
+
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl except Language
+// Set an angular suffix
+angularSuffix * with eurisko
