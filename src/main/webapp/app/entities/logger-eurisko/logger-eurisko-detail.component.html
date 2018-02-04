@@ -1,0 +1,46 @@
+
+<div *ngIf="logger">
+    <h2><span>Logger</span> {{logger.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Name</span></dt>
+        <dd>
+            <span>{{logger.name}}</span>
+        </dd>
+        <dt><span>Burst Count</span></dt>
+        <dd>
+            <span>{{logger.burstCount}}</span>
+        </dd>
+        <dt><span>Burst Frequency</span></dt>
+        <dd>
+            <span>{{logger.burstFrequency}}</span>
+        </dd>
+        <dt><span>Scenario</span></dt>
+        <dd>
+            <div *ngIf="logger.scenarioId">
+                <a [routerLink]="['/scenario-eurisko', logger.scenarioId]">{{logger.scenarioId}}</a>
+            </div>
+        </dd>
+        <dt><span>Appender</span></dt>
+        <dd>
+            <div *ngIf="logger.appenderId">
+                <a [routerLink]="['/appender-eurisko', logger.appenderId]">{{logger.appenderId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'logger-eurisko/'+ logger.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

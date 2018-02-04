@@ -1,0 +1,43 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "scenario",
+            "otherEntityName": "scenario",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "appender",
+            "otherEntityName": "appender",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "logger"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "burstCount",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "burstFrequency",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20180204180558",
+    "entityTableName": "logger",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "angularJSSuffix": "eurisko"
+}

@@ -1,0 +1,82 @@
+<div>
+    <h2>
+        <span>Loggers</span>
+        <button class="btn btn-primary float-right jh-create-entity create-logger-eurisko" [routerLink]="['/', { outlets: { popup: ['logger-eurisko-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span >
+            Create new Logger
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="loggers">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="name"><span>Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="burstCount"><span>Burst Count</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="burstFrequency"><span>Burst Frequency</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="scenarioId"><span>Scenario</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="appenderId"><span>Appender</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let logger of loggers ;trackBy: trackId">
+                <td><a [routerLink]="['../logger-eurisko', logger.id ]">{{logger.id}}</a></td>
+                <td>{{logger.name}}</td>
+                <td>{{logger.burstCount}}</td>
+                <td>{{logger.burstFrequency}}</td>
+                <td>
+                    <div *ngIf="logger.scenarioId">
+                        <a [routerLink]="['../scenario-eurisko', logger.scenarioId  ]" >{{logger.scenarioId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="logger.appenderId">
+                        <a [routerLink]="['../appender-eurisko', logger.appenderId  ]" >{{logger.appenderId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../logger-eurisko', logger.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'logger-eurisko/'+ logger.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'logger-eurisko/'+ logger.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="loggers && loggers.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>
